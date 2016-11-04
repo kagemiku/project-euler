@@ -2,7 +2,7 @@
 My solutions of [Project Euler](https://projecteuler.net/).
 
 # Languages
-* [Scheme](https://github.com/kagemiku/project-euler/tree/scheme)
+* [Scheme](https://github.com/kagemiku/project-euler/tree/scheme/scheme)
 
 # Author
 KAGE
