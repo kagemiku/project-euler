@@ -3,18 +3,11 @@
 (define (divisor? x y)
   (= (remainder x y) 0))
 
-(define (prime? value)
-    (let loop((val (truncate (sqrt value))))
-      (cond
-        ((= val 1) #t)
-        ((divisor? value val) #f)
-        (else (loop (- val 1))))))
-
-(define (solver value)
-  (let loop((val (truncate (sqrt value))))
-    (if (and (prime? val) (divisor? value val))
-      val
-      (loop (- val 1)))))
+(define (solver num)
+  (let loop((x num) (factor 2))
+    (cond
+      ((= x 1) factor)
+      ((divisor? x factor) (loop (/ x factor) factor))
+      (else (loop x (+ factor 1))))))
 
 (solver 600851475143)
-
