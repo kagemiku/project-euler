@@ -34,14 +34,19 @@
       ((divisor? n (car factors)) (loop (/ n (car factors)) factors (cons (car factors) ret)))
       (else (loop n (cdr factors) ret)))))
 
-(define (union ls1 ls2)
-  (let loop((ls ls1) (ret ls2))
+(define (count-vals ls val)
+  (count (lambda (x) (= x val)) ls))
+
+(define (factors->powers factors primes)
+  (if (null? primes)
+    '()
+    (cons (count-vals factors (car primes)) (factors->powers factors (cdr primes)))))
 
 (define (solver max-num)
-  (let loop((num 2) (ret '()) (primes (gen-primes max-num)))
-    (if (> num max-num)
-      (apply * ret)
-      (loop (+ num 1) (union ret (gen-factors num primes)) primes))))
+  (let ((primes (gen-primes max-num)))
+    (let loop((num 2) (ret (make-list (length primes) 0)))
+      (if (> num max-num)
+        (apply * (map expt primes ret))
+        (loop (+ num 1) (map max ret (factors->powers (gen-factors num primes) primes)))))))
 
-(solver 5)
-(union '(1 2 2) '(2))
+(solver 20)
